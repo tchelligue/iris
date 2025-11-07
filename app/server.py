@@ -2,10 +2,10 @@ import joblib
 import numpy as np
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
-
+import os
 
 try:
-    model = joblib.load('app/model.joblib')
+    model = joblib.load(os.path.join(os.path.dirname(__file__), "model.joblib"))
 except Exception as e:
     import sys
     print(f"Model load error: {e}", file=sys.stderr)
