@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 import joblib
 import numpy as np
 
-model = joblib.load('app/model.joblib')
+model = joblib.load('model.joblib')
 class_names = np.array(['setosa', 'versicolor', 'virginica'])
 
 app = FastAPI()
