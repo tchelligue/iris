@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 
 
 try:
-    model = joblib.load('model.joblib')
+    model = joblib.load('app/model.joblib')
 except Exception as e:
     import sys
     print(f"Model load error: {e}", file=sys.stderr)
