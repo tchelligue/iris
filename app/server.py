@@ -1,9 +1,16 @@
-from fastapi import FastAPI, Form
-from fastapi.responses import HTMLResponse
 import joblib
 import numpy as np
+from fastapi import FastAPI, Form
+from fastapi.responses import HTMLResponse
 
-model = joblib.load('model.joblib')
+
+try:
+    model = joblib.load('model.joblib')
+except Exception as e:
+    import sys
+    print(f"Model load error: {e}", file=sys.stderr)
+    raise
+
 class_names = np.array(['setosa', 'versicolor', 'virginica'])
 
 app = FastAPI()
