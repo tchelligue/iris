@@ -1,10 +1,18 @@
+
 import joblib
 import numpy as np
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
+import os
+import sys
 
-
-model = joblib.load('model.joblib')
+print("Starting model load...", file=sys.stderr)
+try:
+    model = joblib.load(os.path.join(os.path.dirname(__file__), "model.joblib"))
+    print("Model loaded successfully.", file=sys.stderr)
+except Exception as e:
+    print(f"Model load error: {e}", file=sys.stderr)
+    raise
 
 class_names = np.array(['setosa', 'versicolor', 'virginica'])
 
@@ -39,20 +47,3 @@ def predict(data: dict):
     prediction = model.predict(features)
     class_name = class_names[prediction][0]
     return {'predicted_class': class_name}
-
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "app/server.py",
-      "use": "@vercel/python",
-      "config": { "maxLambdaSize": "50mb" }
-    }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "app/server.py" }
-  ],
-  "files": [
-    "app/model.joblib"
-  ]
-}
