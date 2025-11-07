@@ -9,5 +9,8 @@
   ],
   "routes": [
     { "src": "/(.*)", "dest": "app/server.py" }
+  ],
+  "files": [
+    "app/model.joblib"
   ]
 }
