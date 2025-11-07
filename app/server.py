@@ -4,10 +4,12 @@ from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import os
 
+import sys
+print("Starting model load...", file=sys.stderr)
 try:
     model = joblib.load(os.path.join(os.path.dirname(__file__), "model.joblib"))
+    print("Model loaded successfully.", file=sys.stderr)
 except Exception as e:
-    import sys
     print(f"Model load error: {e}", file=sys.stderr)
     raise
 
